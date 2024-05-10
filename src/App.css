@@ -1,0 +1,72 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: hsl(228, 33%, 97%);
+  font-family: "Rubik", sans-serif;
+}
+
+#root {
+  max-width: 1280px;
+  margin-inline: auto;
+  width: 100%;
+  padding: 1rem;
+}
+
+/* .icon{
+  fill-rule: black
+} */
+
+.avatar {
+  transform-origin: center;
+  transform: translate(-50%, -50%);
+  width: fit-content;
+  position: fixed;
+  z-index: 200;
+  cursor: pointer;
+}
+
+.avatar img {
+  transition: 0.3s ease-in-out;
+}
+
+.avatar:hover img {
+  transform: scale(1.2);
+}
+
+.avatar img {
+  max-width: 40px;
+}
+
+.avatar-overlay {
+  width: 30px;
+  height: 30px;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 50%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  /* transform: scale(0);
+  pointer-events: none;
+  z-index: 150;
+  transition: 3s; */
+}
+
+/* .avatar-overlay.active {
+  transform: scale(1000);
+  pointer-events: all;
+} */
+
+
+.profile-icon{
+  filter: invert(100%)
+}
