@@ -6,7 +6,7 @@ import { Context } from "../../App";
 
 export default function UserTransition(props) {
   const [currUser, setCurrUser] = useContext(Context);
-  const [setter, setSetter] = useState(1);
+  const [setter, setSetter] = useState(0);
   function func() {
     gsap.set(".trans-img", { opacity: 1, y: 0 });
     gsap.set(".trans-name", { opacity: 1, y: 0 });
@@ -23,13 +23,6 @@ export default function UserTransition(props) {
             scale: 0,
             duration: 0,
           });
-
-          setCurrUser({
-            image: props.img,
-            username: props.name,
-          });
-
-          setSetter(setter + 1);
         },
       })
       .from(".trans-img", {
@@ -62,13 +55,27 @@ export default function UserTransition(props) {
         transformOrigin: "top",
         ease: "power3.in",
         duration: 0.8,
+
+        onComplete: () => {
+          props.setIsTransition();
+        },
       });
+    console.log(setter);
+
+    setTimeout(() => {
+      setCurrUser({
+        image: props.img,
+        username: props.name,
+      });
+
+      setSetter(setter + 1);
+    }, 1000);
   }
 
   const myFunction = useRef(func);
 
   props.transitionFunc(myFunction.current);
-
+  //   console.log(setter);
   useEffect(() => {
     setCurrUser({
       image: props.img,

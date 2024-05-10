@@ -24,8 +24,9 @@ function App() {
     image: max,
     username: "maxblagun",
   });
-  const tempUser = useRef({});
+  const tempUser = useRef({ image: max, username: "maxblagun" });
   const avatarAnimated = useRef(false);
+  const [isTransition, setIsTransition] = useState(true);
 
   useEffect(() => {
     if (allComments[0]) allComments[0].user.image = robson;
@@ -181,6 +182,7 @@ function App() {
   });
 
   function resetAvatars() {
+    setIsTransition(true)
     const avatars = gsap.utils.toArray(".avatar");
 
     if (!avatarAnimated.current) {
@@ -244,11 +246,19 @@ function App() {
   return (
     <Context.Provider value={[currUser, setCurrUser]}>
       <>
-        <UserTransition
-          transitionFunc={getTransitionFunc}
-          img={tempUser.current.image}
-          name={tempUser.current.username}
-        />
+        {isTransition ? (
+          <UserTransition
+            transitionFunc={getTransitionFunc}
+            img={tempUser.current.image}
+            name={tempUser.current.username}
+            setIsTransition={() => {
+              setIsTransition(!isTransition);
+              console.log("removed trans");
+            }}
+          />
+        ) : (
+          ""
+        )}
         <main className="all-container relative flex flex-col gap-3 justify-center items-center w-full max-w-[1100px] mx-auto">
           {commentEls}
 
