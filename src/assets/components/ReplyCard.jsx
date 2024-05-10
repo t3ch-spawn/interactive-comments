@@ -23,6 +23,7 @@ export default function ReplyCard(props) {
   const [replyingTo, setReplyingTo] = useState(props.replyingTo);
   const isUser = useRef(props.username == currUser.username);
   const cardEl = useRef(null);
+  const textAreaRef = useRef(null);
 
   // }, [currUser]);
   function increaseScore() {
@@ -149,7 +150,12 @@ export default function ReplyCard(props) {
     props.hasAddedReply2(true);
   }, [replies, currUser]);
 
-  // console.log(replies)
+  //   This useEffect gets the combined replies of the ReplyCard and the CommentCard itself and sends it to the App component
+  useEffect(() => {
+    if (textAreaRef.current) {
+      textAreaRef.current.focus();
+    }
+  }, [hasReplied]);
 
   return (
     <>
@@ -248,7 +254,7 @@ export default function ReplyCard(props) {
               </div>
             ) : (
               <button
-                onClick={() => {
+                onClick={(e) => {
                   setHasReplied(false);
                   setCurrReply("");
                   // props.repliesOfReply(replies)
@@ -287,16 +293,16 @@ export default function ReplyCard(props) {
                 }`}
               >
                 <button
-                  onClick={(e)=>{
-                    getReplyToDelete(e, 2)
+                  onClick={(e) => {
+                    getReplyToDelete(e, 2);
                   }}
                   className="flex items-center justify-center gap-1 text-red"
                 >
                   <img src={del} alt="" /> Delete
                 </button>
                 <button
-                  onClick={(e)=>{
-                    editReply(e, 2)
+                  onClick={(e) => {
+                    editReply(e, 2);
                   }}
                   className="flex items-center justify-center gap-1 text-normalBlue"
                 >
@@ -361,10 +367,11 @@ export default function ReplyCard(props) {
               onChange={(e) => {
                 setCurrReply(e.currentTarget.value);
               }}
-              className="w-full border-[1px] border-normalBlue outline-normalBlue break-all p-4 h-full leading-[1] rounded-md"
+              className="w-full textAreaRef border-[1px] border-normalBlue outline-normalBlue break-all p-4 h-full leading-[1] rounded-md"
               type="text"
               placeholder="Add comment..."
               value={currReply}
+              ref={textAreaRef}
             />
 
             <BlueBtn content={"REPLY"} />

@@ -25,6 +25,7 @@ export default function CommentCard(props) {
   const replyCardEl = useRef(null);
   const repliesOfreply = useRef(null);
   const isUser = useRef(props.username == currUser.username);
+  const textAreaRef = useRef(null);
 
   function increaseScore() {
     setScore(score + 1);
@@ -341,6 +342,13 @@ export default function CommentCard(props) {
     });
   }, [replies]);
 
+  // This useEffect focuses the textArea once the "reply" button has been clicked
+  useEffect(() => {
+    if (textAreaRef.current) {
+      textAreaRef.current.focus();
+    }
+  }, [hasReplied]);
+
   return (
     <div ref={commentCardEl} className="flex flex-col gap-4 w-full">
       <div className="comment-card flex flex-col w-full max-w-[1100px] justify-end items-end gap-8 bg-white shadow-sm p-6 rounded-lg relative">
@@ -502,6 +510,7 @@ export default function CommentCard(props) {
             type="text"
             placeholder="Add comment..."
             value={currComment}
+            ref={textAreaRef}
           />
 
           <BlueBtn content={"REPLY"} />

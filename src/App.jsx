@@ -253,7 +253,6 @@ function App() {
             name={tempUser.current.username}
             setIsTransition={() => {
               setIsTransition(!isTransition);
-              console.log("removed trans");
             }}
           />
         ) : (

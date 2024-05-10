@@ -60,7 +60,6 @@ export default function UserTransition(props) {
           props.setIsTransition();
         },
       });
-    console.log(setter);
 
     setTimeout(() => {
       setCurrUser({
